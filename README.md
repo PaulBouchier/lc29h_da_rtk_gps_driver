@@ -1,13 +1,16 @@
-# GPS-RTK-Localization
+# LC29H(DA) RTK-GPS Driver
 
 This repository explains how to use the Waveshare LC29H GNSS modules for high-precision GPS-based localization in ROS 2.
 
-The project primarily uses the following modules from the Waveshare LC29H series:
+The project uses the following modules from the Waveshare LC29H series:
 
-- **LC29H DA** – RTK rover module (main focus of this repository)
-- **LC29H BS** – RTK base station module
+- **LC29H (DA)** – RTK rover module (main focus of this repository)
+- **LC29H (BS)** – RTK base station module
 
 This repository focuses specifically on using the **LC29H DA** module together with an external RTK correction service for centimeter-level positioning.
+
+More information about the base station, how to set it up, and the system as a whole can be found
+[here](https://docs.google.com/document/d/1Ivht8Sh4g13TqvNfCvS9TXndvV_6op5G-JnbM73DQEw/edit?tab=t.0)
 
 ---
 
@@ -50,12 +53,12 @@ The modules are relatively affordable (~₹6000 per unit) and support:
 
 ## LC29H Module Variants
 
-### LC29H BS
+### LC29H (BS)
 - RTK Base Station module
 - Generates RTK correction data
 - Not covered in detail in this repository
 
-### LC29H DA
+### LC29H (DA)
 - RTK Rover module
 - Receives RTK corrections
 - Main focus of this repository
@@ -74,13 +77,20 @@ https://www.waveshare.com/lc29h-gps-hat.htm
 
 # RTK Correction Service
 
-This project uses an external RTK correction subscription service:
+This project can use an external RTK correction subscription service:
 
 https://www.rtkdata.com
 
 They provide:
 - A free one-month trial
 - Affordable subscription plans (~₹5000/month)
+
+It can also use the free correction service:
+
+http://rtk2go.com
+
+The provide:
+- Free publish and subscribe to corrections
 
 ---
 
@@ -98,31 +108,38 @@ No additional hardware configuration is required for basic operation.
 
 # Repository Structure
 
-The repository mainly contains three ROS 2 nodes:
+The repository contains three ROS 2 nodes and one launchfile:
 
-## 1. `gps_bridge.py`
+1. 'lc29h_da_rtk_gps_driver.launch.py'
+
+- Launches ntrip_client and lc29h_da_rtk_gps_driver and gps_xy_node.
+  - ntrip_client comes from a separate package and gets corrections from an internet caster
+  and publishes them on /rtcm
+- Accepts these launch parameters:
+  - **port** - default: /dev/ttyUSB0
+  - **baudrate** - default: 115200
+
+2. `lc29h_da_rtk_gps_driver.py`
 Connects the GNSS module to your PC/Raspberry Pi through USB serial communication.
-
-> You may need to modify the serial port according to your system.
-
----
-
-## 2. `gps_fix_node.py`
-Handles RTK correction data and enables GPS RTK FIX status.
+Writes corrections on topic /rtcm to the receiver, and reads GPS fix data from the
+receiver. Publishes GPS data as NMEA sentences on topic 'nmea', and also as NavSatFix
+messages on topic gps/fix. Accepts parameters to set port and baud rate for the USB serial
+connection to the LC29H(DA)
 
 ---
 
-## 3. `gps_xy_node.py`
+3. `gps_xy_node.py`
 Converts latitude and longitude coordinates into local X-Y coordinates for:
 - ROS map frame
 - World coordinates
 - Autonomous navigation
 
-You can modify the origin and transformation logic according to your environment.
+You can modify the origin and transformation logic with parameters to the node, or to
+the launch file.
 
 ---
 
-# Usage
+# Build
 
 Copy this package into your ROS 2 workspace:
 

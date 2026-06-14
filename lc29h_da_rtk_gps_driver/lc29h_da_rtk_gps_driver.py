@@ -13,8 +13,24 @@ class LC29HDA(Node):
     def __init__(self):
         super().__init__('lc29h_da_rtk_gps_driver')
 
+        # Declare parameters
+        self.declare_parameter('port', '/dev/ttyUSB0')
+        self.declare_parameter('baudrate', 115200)
+
+        port = self.get_parameter('port').value
+        baudrate_val = self.get_parameter('baudrate').value
+        try:
+            baudrate = int(baudrate_val)
+        except (ValueError, TypeError):
+            self.get_logger().warn(f"Failed to parse baudrate '{baudrate_val}' as integer, falling back to 11200")
+            baudrate = 115200
+
         # Serial connection
-        self.ser = serial.Serial('/dev/ttyUSB0', 115200, timeout=0.1)
+        try:
+            self.ser = serial.Serial(port, baudrate, timeout=0.1)
+        except Exception as e:
+            self.get_logger().error(f"Failed to open serial port {port} at baudrate {baudrate}: {e}")
+            raise e
 
         # NMEA publisher
         self.nmea_pub = self.create_publisher(
@@ -44,7 +60,7 @@ class LC29HDA(Node):
             self.read_serial
         )
 
-        self.get_logger().info("LC29H(DA) RTK-GPS driver Started")
+        self.get_logger().info(f"LC29H(DA) RTK-GPS driver Started on port {port} at {baudrate} baud")
 
     def rtcm_callback(self, msg):
         try:
