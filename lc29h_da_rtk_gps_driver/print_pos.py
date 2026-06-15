@@ -4,6 +4,7 @@ from geometry_msgs.msg import PointStamped
 import rclpy
 from rclpy.node import Node
 from sensor_msgs.msg import NavSatFix
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 
 
 class PrintPos(Node):
@@ -29,12 +30,18 @@ class PrintPos(Node):
         # Declare parameters
         self.declare_parameter('verbose', False)
 
+        # Define a BEST_EFFORT QoS profile for subscriptions
+        best_effort_qos = QoSProfile(
+            reliability=QoSReliabilityPolicy.BEST_EFFORT,
+            depth=10
+        )
+
         # Subscribers
         self.fix_sub = self.create_subscription(
             NavSatFix,
             'gps/fix',
             self.fix_callback,
-            10
+            best_effort_qos
         )
 
         self.xy_sub = self.create_subscription(
@@ -87,8 +94,6 @@ class PrintPos(Node):
 
     def timer_callback(self):
         """Print the latest coordinates and fix type status."""
-        if self.last_xy_time is None:
-            return
         if self.last_timer_xy_time is not None and self.last_xy_time <= self.last_timer_xy_time:
             return
         self.last_timer_xy_time = self.last_xy_time

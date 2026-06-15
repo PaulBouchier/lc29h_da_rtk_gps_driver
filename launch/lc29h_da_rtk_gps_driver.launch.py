@@ -25,7 +25,7 @@ def generate_launch_description():
     # ntrip_client launch arguments (forwarded to included launch)
     ntrip_host_arg = DeclareLaunchArgument(
         'ntrip_host',
-        default_value='rtk2go.com',
+        default_value='',
         description='NTRIP host'
     )
 
@@ -37,13 +37,13 @@ def generate_launch_description():
 
     ntrip_mountpoint_arg = DeclareLaunchArgument(
         'ntrip_mountpoint',
-        default_value='LittleElm_L1L5',
+        default_value='',
         description='NTRIP mountpoint'
     )
 
     ntrip_username_arg = DeclareLaunchArgument(
         'ntrip_username',
-        default_value='paul.bouchier@gmail.com',
+        default_value='',
         description='NTRIP username'
     )
 
