@@ -22,6 +22,49 @@ def generate_launch_description():
         description='Baudrate for GPS device'
     )
 
+    # ntrip_client launch arguments (forwarded to included launch)
+    ntrip_host_arg = DeclareLaunchArgument(
+        'ntrip_host',
+        default_value='rtk2go.com',
+        description='NTRIP host'
+    )
+
+    ntrip_port_arg = DeclareLaunchArgument(
+        'ntrip_port',
+        default_value='2101',
+        description='NTRIP port'
+    )
+
+    ntrip_mountpoint_arg = DeclareLaunchArgument(
+        'ntrip_mountpoint',
+        default_value='LittleElm_L1L5',
+        description='NTRIP mountpoint'
+    )
+
+    ntrip_username_arg = DeclareLaunchArgument(
+        'ntrip_username',
+        default_value='paul.bouchier@gmail.com',
+        description='NTRIP username'
+    )
+
+    ntrip_password_arg = DeclareLaunchArgument(
+        'ntrip_password',
+        default_value='none',
+        description='NTRIP password'
+    )
+
+    ntrip_authenticate_arg = DeclareLaunchArgument(
+        'ntrip_authenticate',
+        default_value='true',
+        description='NTRIP authenticate'
+    )
+
+    ntrip_send_nmea_arg = DeclareLaunchArgument(
+        'ntrip_send_nmea',
+        default_value='false',
+        description='NTRIP send_nmea'
+    )
+
     # Node 1: gps_xy_node
     # Command: ros2 run lc29h_da_rtk_gps_driver gps_xy_node --ros-args -p origin_lat:=33.1577935 -p origin_lon:=-96.9373084 -p origin_alt:=143.684
     gps_xy_node = Node(
@@ -30,9 +73,9 @@ def generate_launch_description():
         name='gps_xy_node',
         output='screen',
         parameters=[{
-            'origin_lat': 33.1577935,
-            'origin_lon': -96.9373084,
-            'origin_alt': 143.684
+            'origin_lat': 33.15777543,
+            'origin_lon': -96.93730808,
+            'origin_alt': 169.54
         }]
     )
 
@@ -59,19 +102,26 @@ def generate_launch_description():
             )
         ),
         launch_arguments={
-            'host': 'rtk2go.com',
-            'port': '2101',
-            'mountpoint': 'LittleElm_L1L5',
-            'username': 'paul.bouchier@gmail.com',
-            'password': 'none',
-            'authenticate': 'true',
-            'send_nmea': 'false'
+            'host': LaunchConfiguration('ntrip_host'),
+            'port': LaunchConfiguration('ntrip_port'),
+            'mountpoint': LaunchConfiguration('ntrip_mountpoint'),
+            'username': LaunchConfiguration('ntrip_username'),
+            'password': LaunchConfiguration('ntrip_password'),
+            'authenticate': LaunchConfiguration('ntrip_authenticate'),
+            'send_nmea': LaunchConfiguration('ntrip_send_nmea')
         }.items()
     )
 
     return LaunchDescription([
         port_arg,
         baudrate_arg,
+        ntrip_host_arg,
+        ntrip_port_arg,
+        ntrip_mountpoint_arg,
+        ntrip_username_arg,
+        ntrip_password_arg,
+        ntrip_authenticate_arg,
+        ntrip_send_nmea_arg,
         gps_xy_node,
         lc29h_da_rtk_gps_driver_node,
         ntrip_client_launch
