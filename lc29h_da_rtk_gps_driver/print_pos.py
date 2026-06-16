@@ -99,9 +99,9 @@ class PrintPos(Node):
         self.last_timer_xy_time = self.last_xy_time
 
         # Format values to 3 decimal places if available, otherwise 'None'
-        x_str = f'{self.x:.3f}' if self.x is not None else 'None'
-        y_str = f'{self.y:.3f}' if self.y is not None else 'None'
-        z_str = f'{self.z:.3f}' if self.z is not None else 'None'
+        x_str = f'{self.x:.2f}' if self.x is not None else 'None'
+        y_str = f'{self.y:.2f}' if self.y is not None else 'None'
+        z_str = f'{self.z:.2f}' if self.z is not None else 'None'
 
         # Print to stdout/logger
         output_str = (
