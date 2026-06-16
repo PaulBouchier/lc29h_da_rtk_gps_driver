@@ -9,9 +9,8 @@ The project uses the following modules from the Waveshare LC29H series:
 
 This repository focuses specifically on using the **LC29H DA** module together with an external RTK correction service for centimeter-level positioning.
 
-More information about the base station, how to set it up, and the system as a whole can be found
-[offline in this repo](docs/LC29H GNSS Receivers.md)
-[or online for the latest version, here](https://docs.google.com/document/d/1Ivht8Sh4g13TqvNfCvS9TXndvV_6op5G-JnbM73DQEw/edit?tab=t.0)
+More information about the base station, how to set it up, and the system as a whole can be found offline in this repo at docs/LC29H GNSS Receivers.md
+or online for the latest version [here](https://docs.google.com/document/d/1Ivht8Sh4g13TqvNfCvS9TXndvV_6op5G-JnbM73DQEw/edit?tab=t.0)
 
 ---
 
