@@ -18,7 +18,94 @@ or online for the latest version [here](https://docs.google.com/document/d/1Ivht
 
 RTK (Real-Time Kinematic) positioning is a GNSS technique that improves standard GPS accuracy from meter-level precision to centimeter-level precision using correction data from a base station or RTK network.
 
+If you are new to RTK GNSS systems, refer to:
+
+https://en.wikipedia.org/wiki/Real-time_kinematic_positioning
+
 ---
+
+# Why This Repository?
+
+Professional RTK GNSS systems are often expensive and difficult to configure. The Waveshare LC29H series provides a low-cost and easy-to-use alternative while still delivering impressive performance.
+
+However, there is very little complete documentation available online for setting up these modules with ROS 2 and RTK correction services.
+
+This repository aims to provide:
+- A simple and working ROS 2 setup
+- RTK correction integration
+- GPS-to-map coordinate conversion
+- Ready-to-use scripts
+- Practical guidance from real-world testing
+
+Using this setup, I successfully achieved:
+- **RTK FIX status**
+- Approximately **2 cm positioning accuracy**
+- Reliable autonomous navigation over a **100 meter test area**
+- Navigation without fully depending on wheel odometry
+
+The modules are relatively affordable (~₹6000 per unit) and support:
+- **L1 frequency band**
+- **L5 frequency band**
+
+---
+
+# Supported Hardware
+
+## LC29H Module Variants
+
+### LC29H (BS)
+- RTK Base Station module
+- Generates RTK correction data
+- Not covered in detail in this repository
+
+### LC29H (DA)
+- RTK Rover module
+- Receives RTK corrections
+- Main focus of this repository
+
+![LC29H Module](https://github.com/user-attachments/assets/2348699e-1302-49d9-8992-aa4dd70cd898)
+
+
+<img width="400" height="400" alt="F4DlbMcC4cMepO2el6jO-XoXY2m28JdMvWTssyQdON6Z3dLXqhr4-qA7TpOfD5_m-ebT_CsyMMC-RjXJaLUMMq8_-WQXTKCyLZLsSvwUj9zQ-A0_mf3U3g4gP4ZEeintF3FM-O1WEwqRVitiCoK_8vtbkhS59TG2NnNYhG9Uz10" src="https://github.com/user-attachments/assets/a5fb224c-bdf5-41bc-9edd-49fd3e35bb5c" />
+
+
+More details about the boards:
+
+https://www.waveshare.com/lc29h-gps-hat.htm
+
+---
+
+# RTK Correction Service
+
+This project can use an external RTK correction subscription service:
+
+https://www.rtkdata.com
+
+They provide:
+- A free one-month trial
+- Affordable subscription plans (~₹5000/month)
+
+It can also use the free correction service:
+
+http://rtk2go.com
+
+They provide:
+- Free publish and subscribe to corrections
+
+---
+
+# Hardware Setup
+
+Setup is straightforward:
+
+1. Connect the **LC29H DA** module to your PC or Raspberry Pi using a micro-USB cable
+2. Connect the GNSS antenna
+3. Run the ROS 2 nodes provided in this repository
+
+No additional hardware configuration is required for basic operation.
+
+---
+
 
 # Build
 
