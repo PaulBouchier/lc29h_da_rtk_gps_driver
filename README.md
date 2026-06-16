@@ -274,10 +274,6 @@ Example:
 | 5 | RTK FLOAT | ~10–50 cm |
 
 
-
-<img width="738" height="448" alt="rtk sample" src="https://github.com/user-attachments/assets/b8c39d9c-c317-4c65-9611-f640a7e242b0" />
-
-
 ---
 
 # Important Notes
