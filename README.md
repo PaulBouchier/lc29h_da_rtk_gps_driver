@@ -18,44 +18,6 @@ or online for the latest version [here](https://docs.google.com/document/d/1Ivht
 
 RTK (Real-Time Kinematic) positioning is a GNSS technique that improves standard GPS accuracy from meter-level precision to centimeter-level precision using correction data from a base station or RTK network.
 
-### Launch arguments
-
-- **port**: Serial port for GPS device (default: /dev/ttyUSB0)
-- **baudrate**: Baudrate for GPS device (default: 115200)
-- **ntrip_host**: NTRIP host (default: '')
-- **ntrip_port**: NTRIP port (default: 2101)
-- **ntrip_mountpoint**: NTRIP mountpoint (default: '')
-- **ntrip_username**: NTRIP username (default: '')
-- **ntrip_password**: NTRIP password (default: none)
-- **ntrip_authenticate**: NTRIP authenticate (default: true)
-- **ntrip_send_nmea**: NTRIP send_nmea (default: false)
-- **namespace**: no description given (default: /)
-- **node_name**: no description given (default: ntrip_client)
-- **debug**: no description given (default: false)
-- **host**: no description given (default: 20.185.11.35)
-- **mountpoint**: no description given (default: VRS_RTCM3)
-- **ntrip_version**: no description given (default: None)
-- **user_agent**: HTTP User-Agent sent to the caster. Must start with "NTRIP ". rtk2go blocks the stock "NTRIP ntrip_client_ros". (default: NTRIP ros_ntrip_client)
-- **ntrip_server_hz**: no description given (default: 1)
-- **send_nmea**: Forward NMEA from the "nmea" topic up to the caster. Needed for virtual/relayed (VRS) mountpoints; set false for plain base stations to skip the subscription and avoid uploading position. (default: true)
-- **authenticate**: no description given (default: True)
-- **username**: no description given (default: user)
-- **password**: no description given (default: pass)
-- **ssl**: no description given (default: False)
-- **cert**: no description given (default: None)
-- **key**: no description given (default: None)
-- **ca_cert**: no description given (default: None)
-- **rtcm_message_package**: no description given (default: rtcm_msgs)
-- **reconnect_attempt_wait_max_seconds**: Ceiling for the exponential reconnect backoff. Retries are persistent (never give up); raise this to reduce footprint during long caster outages (e.g. 600 for rtk2go DDoS/maintenance downtime). (default: 120)
-
-```bash
-
-
-```
-
-You can modify the origin and transformation logic with parameters to the node, or to
-the launch file.
-
 ---
 
 # Build
@@ -165,127 +127,46 @@ The launch file starts these nodes:
 ROS path for this launchfile to work. There are **80** forks of ntrip_client!
 The parameters in this launch file are provided for the fork at:
 https://github.com/PaulBouchier/ntrip_client
+This ntrip client is modified to work with the rtk2go.com caster.
 If you use a different ntrip_client you may need to adjust this launch file.
 
 ### Launch arguments
 
-    'port':
-        Serial port for GPS device
-        (default: '/dev/ttyUSB0')
+Where no description of a parameter is given, refer to the ntrip_client
+documentation for details.
 
-    'baudrate':
-        Baudrate for GPS device
-        (default: '115200')
+- **port**: Serial port for GPS device (default: /dev/ttyUSB0)
+- **baudrate**: Baudrate for GPS device (default: 115200)
+- **ntrip_host**: NTRIP host (default: '')
+- **ntrip_port**: NTRIP port (default: 2101)
+- **ntrip_mountpoint**: NTRIP mountpoint (default: '')
+- **ntrip_username**: NTRIP username (default: '')
+- **ntrip_password**: NTRIP password (default: none)
+- **ntrip_authenticate**: NTRIP authenticate (default: true)
+- **ntrip_send_nmea**: NTRIP send_nmea (default: false)
+- **namespace**: no description given (default: /)
+- **node_name**: no description given (default: ntrip_client)
+- **debug**: no description given (default: false)
+- **host**: no description given (default: 20.185.11.35)
+- **mountpoint**: no description given (default: VRS_RTCM3)
+- **ntrip_version**: no description given (default: None)
+- **user_agent**: HTTP User-Agent sent to the caster. Must start with "NTRIP ". rtk2go blocks the stock "NTRIP ntrip_client_ros". (default: NTRIP ros_ntrip_client)
+- **ntrip_server_hz**: no description given (default: 1)
+- **send_nmea**: Forward NMEA from the "nmea" topic up to the caster. Needed for virtual/relayed (VRS) mountpoints; set false for plain base stations to skip the subscription and avoid uploading position. (default: true)
+- **authenticate**: no description given (default: True)
+- **username**: no description given (default: user)
+- **password**: no description given (default: pass)
+- **ssl**: no description given (default: False)
+- **cert**: no description given (default: None)
+- **key**: no description given (default: None)
+- **ca_cert**: no description given (default: None)
+- **rtcm_message_package**: no description given (default: rtcm_msgs)
+- **reconnect_attempt_wait_max_seconds**: Ceiling for the exponential reconnect backoff. Retries are persistent (never give up); raise this to reduce footprint during long caster outages (e.g. 600 for rtk2go DDoS/maintenance downtime). (default: 120)
 
-    'ntrip_host':
-        NTRIP host
-        (default: '')
-
-    'ntrip_port':
-        NTRIP port
-        (default: '2101')
-
-    'ntrip_mountpoint':
-        NTRIP mountpoint
-        (default: '')
-
-    'ntrip_username':
-        NTRIP username
-        (default: '')
-
-    'ntrip_password':
-        NTRIP password
-        (default: 'none')
-
-    'ntrip_authenticate':
-        NTRIP authenticate
-        (default: 'true')
-
-    'ntrip_send_nmea':
-        NTRIP send_nmea
-        (default: 'false')
-
-    'namespace':
-        no description given
-        (default: '/')
-
-    'node_name':
-        no description given
-        (default: 'ntrip_client')
-
-    'debug':
-        no description given
-        (default: 'false')
-
-    'host':
-        no description given
-        (default: '20.185.11.35')
-
-    'mountpoint':
-        no description given
-        (default: 'VRS_RTCM3')
-
-    'ntrip_version':
-        no description given
-        (default: 'None')
-
-    'user_agent':
-        HTTP User-Agent sent to the caster. Must start with "NTRIP ". rtk2go blocks the stock "NTRIP ntrip_client_ros".
-        (default: 'NTRIP ros_ntrip_client')
-
-    'ntrip_server_hz':
-        no description given
-        (default: '1')
-
-    'send_nmea':
-        Forward NMEA from the "nmea" topic up to the caster. Needed for virtual/relayed (VRS) mountpoints; set false for plain base stations to skip the subscription and avoid uploading position.
-        (default: 'true')
-
-    'authenticate':
-        no description given
-        (default: 'True')
-
-    'username':
-        no description given
-        (default: 'user')
-
-    'password':
-        no description given
-        (default: 'pass')
-
-    'ssl':
-        no description given
-        (default: 'False')
-
-    'cert':
-        no description given
-        (default: 'None')
-
-    'key':
-        no description given
-        (default: 'None')
-
-    'ca_cert':
-        no description given
-        (default: 'None')
-
-    'rtcm_message_package':
-        no description given
-        (default: 'rtcm_msgs')
-
-    'reconnect_attempt_wait_max_seconds':
-        Ceiling for the exponential reconnect backoff. Retries are persistent (never give up); raise this to reduce footprint during long caster outages (e.g. 600 for rtk2go DDoS/maintenance downtime).
-        (default: '120')
-
+### Example launch command
 
 ```bash
-
-```
-
-After startup, the localization output will be available on:
-
-```bash
-/gps/xy
+ros2 launch lc29h_da_rtk_gps_driver lc29h_da_rtk_gps_driver.launch.py ntrip_host:=rtk2go.com ntrip_username:=paul.bouchier@gmail.com ntrip_password:=false ntrip_mountpoint:=VN1 send_nmea:=false
 ```
 
 ---
