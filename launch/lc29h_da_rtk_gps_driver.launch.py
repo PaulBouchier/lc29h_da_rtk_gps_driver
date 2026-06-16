@@ -65,7 +65,7 @@ def generate_launch_description():
         description='NTRIP send_nmea'
     )
 
-    # Node 1: gps_xy_node
+    # gps_xy_node for generating XY offsets from origin for LC29H data
     # Command: ros2 run lc29h_da_rtk_gps_driver gps_xy_node --ros-args -p origin_lat:=33.1577935 -p origin_lon:=-96.9373084 -p origin_alt:=143.684
     gps_xy_node = Node(
         package='lc29h_da_rtk_gps_driver',

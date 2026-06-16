@@ -10,7 +10,8 @@ The project uses the following modules from the Waveshare LC29H series:
 This repository focuses specifically on using the **LC29H DA** module together with an external RTK correction service for centimeter-level positioning.
 
 More information about the base station, how to set it up, and the system as a whole can be found
-[here](https://docs.google.com/document/d/1Ivht8Sh4g13TqvNfCvS9TXndvV_6op5G-JnbM73DQEw/edit?tab=t.0)
+[in this repo, here](docs.LC29H%20GNSS%20Receivers.md)
+[or online for the latest version, here](https://docs.google.com/document/d/1Ivht8Sh4g13TqvNfCvS9TXndvV_6op5G-JnbM73DQEw/edit?tab=t.0)
 
 ---
 
@@ -172,10 +173,10 @@ After startup, the localization output will be available on:
 
 # RTK Status Reference
 
-The number shown next to `E` in the GNSS output indicates the current positioning quality.
+In the NavSatFix message published on gps/fix, the status.status field indicates the current positioning quality.
 
 Example:
-- `E=4` → RTK FIX achieved
+- `status=4` → RTK FIX achieved
 
 | Status | Meaning | Typical Accuracy |
 |---|---|---|
@@ -208,12 +209,3 @@ Example:
 
 RTK FIX may not always be guaranteed under difficult conditions.
 
----
-
-# ROS 2 Compatibility
-
-All code in this repository is developed and tested using:
-
-- ROS 2 Humble
-
-You are free to review, modify, and adapt the code according to your project requirements.
