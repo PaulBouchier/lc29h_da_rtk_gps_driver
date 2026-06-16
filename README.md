@@ -89,7 +89,7 @@ It can also use the free correction service:
 
 http://rtk2go.com
 
-The provide:
+They provide:
 - Free publish and subscribe to corrections
 
 ---
