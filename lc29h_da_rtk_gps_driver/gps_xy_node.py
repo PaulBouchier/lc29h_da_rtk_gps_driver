@@ -3,6 +3,7 @@ from rclpy.node import Node
 from sensor_msgs.msg import NavSatFix
 from geometry_msgs.msg import PointStamped
 import math
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy
 
 
 class GPSXYNode(Node):
@@ -23,11 +24,17 @@ class GPSXYNode(Node):
         )
 
         # Subscriber
+        # Define a BEST_EFFORT QoS profile for subscriptions
+        best_effort_qos = QoSProfile(
+            reliability=QoSReliabilityPolicy.BEST_EFFORT,
+            depth=10
+        )
+
         self.sub = self.create_subscription(
             NavSatFix,
             'gps/fix',
             self.callback,
-            10
+            qos_profile=best_effort_qos
         )
 
         # Publisher
