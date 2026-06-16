@@ -32,6 +32,12 @@ class LC29HDA(Node):
             self.get_logger().error(f"Failed to open serial port {port} at baudrate {baudrate}: {e}")
             raise e
 
+        # GPS Fix publisher
+        self.fix_pub = self.create_publisher(
+            NavSatFix,
+            '/gps/fix',
+            10)
+
         # NMEA publisher
         self.nmea_pub = self.create_publisher(
             Sentence,
@@ -47,12 +53,6 @@ class LC29HDA(Node):
             10
         )
         self._rtcm_once = False
-
-        # GPS Fix publisher
-        self.fix_pub = self.create_publisher(
-            NavSatFix,
-            '/gps/fix',
-            10)
 
         # Timer
         self.timer = self.create_timer(

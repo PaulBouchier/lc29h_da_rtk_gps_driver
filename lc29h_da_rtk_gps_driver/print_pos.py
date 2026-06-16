@@ -57,7 +57,7 @@ class PrintPos(Node):
         self.get_logger().info('PrintPos node initialized and listening.')
 
     def fix_callback(self, msg):
-        """Update the latest fix type status."""
+        """Update the latest fix"""
         self.latitude = msg.latitude
         self.longitude = msg.longitude
         self.altitude = msg.altitude
